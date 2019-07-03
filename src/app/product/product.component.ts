@@ -9,6 +9,7 @@ import { STRING_TYPE } from '@angular/compiler/src/output/output_ast';
 export class ProductComponent implements OnInit {
 
   private products: Array<Product>;
+  private imgUrl = 'http://placehold.it/320x150';
 
   constructor() { }
 
