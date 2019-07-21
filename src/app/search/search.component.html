@@ -1,22 +1,27 @@
-<form name="searchFrom" role="form">
-  <div class="form-group">
-    <label for="productTitle">商品名称</label>
-    <!-- 带有 placeholder 文本的两个输入字段： -->
-    <!-- form-control给input添加这个class类后就会使用bootstrap自带的input框 -->
-    <input type="text" id="productTitle" placeholder="商品名称" class="form-control">
+<form [formGroup]="formModel" (ngSubmit)="onSearch()" novalidate>
+  <div class="form-group" [class.has-error]="formModel.hasError('minlength','title')">
+    <label for="productTitle">商品名称:</label>
+    <input formControlName="title" type="text" id="productTitle" placeholder="商品名称" class="form-control">
+    <span class="help-block" [class.hidden]="!formModel.hasError('minlength','title')">
+      请至少输入三个字
+    </span>
+  </div>
+  <div class="form-group" [class.has-error]="formModel.hasError('positiveNumber','price')">
+    <label for="productPrice">商品价格</label>
+    <input formControlName="price" type="number" id="productPrice" placeholder="商品价格" class="form-control">
+    <span class="help-block" [class.hidden]="!formModel.hasError('positiveNumber','price')">
+      请输入正数
+    </span>
   </div>
   <div class="form-group">
-      <label for="productPrice">商品价格</label>
-      <input type="number" id="productPrice" placeholder="商品价格" class="form-control">
+    <label for="productCategory">商品类别</label>
+    <select formControlName="category" id="productCategory" placeholder="商品价格" class="form-control">
+      <option value="-1">全部分类</option>
+      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+    </select>
   </div>
   <div class="form-group">
-      <label for="productCategory">商品价格</label>
-      <select  id="productCategory" placeholder="商品价格" class="form-control">
-      
-      </select>
-  </div>
-  <div class="form-group">
-      <!-- btn和btn-primary，btn样式来显示对象为按钮，btn-primary来指定按钮为基本样式按钮，颜色为蓝色 -->
-      <button type="submit" class="btn btn-primary btn-block">搜索</button>
+    <!-- btn和btn-primary，btn样式来显示对象为按钮，btn-primary来指定按钮为基本样式按钮，颜色为蓝色 -->
+    <button type="submit" class="btn btn-primary btn-block">搜索</button>
   </div>
 </form>
